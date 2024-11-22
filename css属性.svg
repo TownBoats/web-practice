@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+    <!-- 背景 -->
+    <rect width="1200" height="800" fill="#ffffff"/>
+    <rect width="1200" height="800" fill="#f8f9fa" rx="15"/>
+    
+    <!-- 标题 -->
+    <text x="600" y="50" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">CSS属性功能详解</text>
+    
+    <!-- 第一行 -->
+    <g transform="translate(40, 80)">
+        <!-- 布局属性 -->
+        <rect x="0" y="0" width="360" height="220" rx="10" fill="#e3f2fd" stroke="#90caf9"/>
+        <text x="180" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">布局属性</text>
+        <text x="20" y="55" font-size="13">
+            <tspan x="20" dy="0" font-weight="bold">display</tspan>
+            <tspan x="20" dy="18" font-size="11">设置元素的显示类型(block/inline/flex)</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">position</tspan>
+            <tspan x="20" dy="18" font-size="11">定位方式(relative/absolute/fixed)</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">float</tspan>
+            <tspan x="20" dy="18" font-size="11">元素浮动方式(left/right/none)</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">flex</tspan>
+            <tspan x="20" dy="18" font-size="11">弹性布局相关属性</tspan>
+        </text>
+
+        <!-- 盒模型 -->
+        <rect x="380" y="0" width="360" height="220" rx="10" fill="#e8f5e9" stroke="#a5d6a7"/>
+        <text x="560" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#388e3c">盒模型</text>
+        <text x="400" y="55" font-size="13">
+            <tspan x="400" dy="0" font-weight="bold">margin</tspan>
+            <tspan x="400" dy="18" font-size="11">外边距，控制元素间距</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">padding</tspan>
+            <tspan x="400" dy="18" font-size="11">内边距，控制内容与边框距离</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">border</tspan>
+            <tspan x="400" dy="18" font-size="11">边框样式、宽度和颜色</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">box-sizing</tspan>
+            <tspan x="400" dy="18" font-size="11">盒模型计算方式</tspan>
+        </text>
+
+        <!-- 字体和文本 -->
+        <rect x="760" y="0" width="360" height="220" rx="10" fill="#fff3e0" stroke="#ffcc80"/>
+        <text x="940" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#f57c00">字体和文本</text>
+        <text x="780" y="55" font-size="13">
+            <tspan x="780" dy="0" font-weight="bold">font-family/size/weight</tspan>
+            <tspan x="780" dy="18" font-size="11">字体系列、大小和粗细</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">text-align</tspan>
+            <tspan x="780" dy="18" font-size="11">文本对齐方式</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">line-height</tspan>
+            <tspan x="780" dy="18" font-size="11">行高</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">text-decoration</tspan>
+            <tspan x="780" dy="18" font-size="11">文本装饰(下划线等)</tspan>
+        </text>
+    </g>
+
+    <!-- 第二行 -->
+    <g transform="translate(40, 320)">
+        <!-- 颜色和背景 -->
+        <rect x="0" y="0" width="360" height="220" rx="10" fill="#f3e5f5" stroke="#ce93d8"/>
+        <text x="180" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#7b1fa2">颜色和背景</text>
+        <text x="20" y="55" font-size="13">
+            <tspan x="20" dy="0" font-weight="bold">color</tspan>
+            <tspan x="20" dy="18" font-size="11">文字颜色</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">background-color</tspan>
+            <tspan x="20" dy="18" font-size="11">背景颜色</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">background-image</tspan>
+            <tspan x="20" dy="18" font-size="11">背景图片</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">opacity</tspan>
+            <tspan x="20" dy="18" font-size="11">元素透明度</tspan>
+        </text>
+
+        <!-- 转换和动画 -->
+        <rect x="380" y="0" width="360" height="220" rx="10" fill="#e1f5fe" stroke="#81d4fa"/>
+        <text x="560" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0288d1">转换和动画</text>
+        <text x="400" y="55" font-size="13">
+            <tspan x="400" dy="0" font-weight="bold">transform</tspan>
+            <tspan x="400" dy="18" font-size="11">变换(旋转、缩放、平移)</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">transition</tspan>
+            <tspan x="400" dy="18" font-size="11">过渡效果</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">animation</tspan>
+            <tspan x="400" dy="18" font-size="11">动画效果</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">@keyframes</tspan>
+            <tspan x="400" dy="18" font-size="11">定义动画关键帧</tspan>
+        </text>
+
+        <!-- 尺寸和定位 -->
+        <rect x="760" y="0" width="360" height="220" rx="10" fill="#fce4ec" stroke="#f48fb1"/>
+        <text x="940" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#c2185b">尺寸和定位</text>
+        <text x="780" y="55" font-size="13">
+            <tspan x="780" dy="0" font-weight="bold">width/height</tspan>
+            <tspan x="780" dy="18" font-size="11">元素宽度和高度</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">top/right/bottom/left</tspan>
+            <tspan x="780" dy="18" font-size="11">定位坐标</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">z-index</tspan>
+            <tspan x="780" dy="18" font-size="11">层叠顺序</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">overflow</tspan>
+            <tspan x="780" dy="18" font-size="11">内容溢出处理</tspan>
+        </text>
+    </g>
+
+    <!-- 第三行 -->
+    <g transform="translate(40, 560)">
+        <!-- 弹性布局(Flexbox) -->
+        <rect x="0" y="0" width="360" height="220" rx="10" fill="#fff8e1" stroke="#ffe082"/>
+        <text x="180" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffa000">弹性布局(Flexbox)</text>
+        <text x="20" y="55" font-size="13">
+            <tspan x="20" dy="0" font-weight="bold">flex-direction</tspan>
+            <tspan x="20" dy="18" font-size="11">主轴方向</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">justify-content</tspan>
+            <tspan x="20" dy="18" font-size="11">主轴对齐方式</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">align-items</tspan>
+            <tspan x="20" dy="18" font-size="11">交叉轴对齐方式</tspan>
+            
+            <tspan x="20" dy="25" font-weight="bold">flex-wrap</tspan>
+            <tspan x="20" dy="18" font-size="11">是否换行</tspan>
+        </text>
+
+        <!-- 网格布局(Grid) -->
+        <rect x="380" y="0" width="360" height="220" rx="10" fill="#e0f2f1" stroke="#80cbc4"/>
+        <text x="560" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#00796b">网格布局(Grid)</text>
+        <text x="400" y="55" font-size="13">
+            <tspan x="400" dy="0" font-weight="bold">grid-template-columns</tspan>
+            <tspan x="400" dy="18" font-size="11">定义列的大小和数量</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">grid-template-rows</tspan>
+            <tspan x="400" dy="18" font-size="11">定义行的大小和数量</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">grid-gap</tspan>
+            <tspan x="400" dy="18" font-size="11">网格间距</tspan>
+            
+            <tspan x="400" dy="25" font-weight="bold">grid-area</tspan>
+            <tspan x="400" dy="18" font-size="11">指定网格项的位置和大小</tspan>
+        </text>
+
+        <!-- 其他样式 -->
+        <rect x="760" y="0" width="360" height="220" rx="10" fill="#e8eaf6" stroke="#9fa8da"/>
+        <text x="940" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#3949ab">其他样式</text>
+        <text x="780" y="55" font-size="13">
+            <tspan x="780" dy="0" font-weight="bold">border-radius</tspan>
+            <tspan x="780" dy="18" font-size="11">圆角边框</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">box-shadow</tspan>
+            <tspan x="780" dy="18" font-size="11">盒子阴影</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">cursor</tspan>
+            <tspan x="780" dy="18" font-size="11">鼠标指针样式</tspan>
+            
+            <tspan x="780" dy="25" font-weight="bold">user-select</tspan>
+            <tspan x="780" dy="18" font-size="11">文本选择行为</tspan>
+        </text>
+    </g>
+</svg>
