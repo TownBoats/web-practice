@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <!-- 背景 -->
+    <rect width="800" height="400" fill="#f8fafc"/>
+    
+    <!-- 三个阶段的房子 -->
+    
+    <!-- 1. HTML 结构 -->
+    <g transform="translate(50, 50)">
+        <!-- 房子标题 -->
+        <text x="100" y="30" font-size="16" font-weight="bold" fill="#334155">HTML（结构）</text>
+        
+        <!-- 房屋框架 -->
+        <g stroke="#94a3b8" stroke-width="2" fill="none">
+            <!-- 墙体框架 -->
+            <rect x="50" y="100" width="150" height="120"/>
+            <!-- 屋顶框架 -->
+            <path d="M25,100 L125,30 L225,100"/>
+            <!-- 门框架 -->
+            <rect x="100" y="160" width="40" height="60"/>
+            <!-- 窗框架 -->
+            <rect x="60" y="120" width="40" height="40"/>
+        </g>
+    </g>
+
+    <!-- 2. CSS 装饰 -->
+    <g transform="translate(300, 50)">
+        <!-- 房子标题 -->
+        <text x="100" y="30" font-size="16" font-weight="bold" fill="#334155">CSS（样式）</text>
+        
+        <!-- 装修后的房子 -->
+        <!-- 屋顶 -->
+        <path d="M25,100 L125,30 L225,100" fill="#ef4444" stroke="#dc2626"/>
+        <!-- 墙体 -->
+        <rect x="50" y="100" width="150" height="120" fill="#fef3c7" stroke="#fbbf24"/>
+        <!-- 门 -->
+        <rect x="100" y="160" width="40" height="60" fill="#92400e" stroke="#78350f"/>
+        <!-- 窗户 -->
+        <rect x="60" y="120" width="40" height="40" fill="#93c5fd" stroke="#2563eb"/>
+        <!-- 窗框 -->
+        <path d="M80,120 L80,160 M60,140 L100,140" stroke="white"/>
+    </g>
+
+    <!-- 3. JavaScript 功能 -->
+    <g transform="translate(550, 50)">
+        <!-- 房子标题 -->
+        <text x="100" y="30" font-size="16" font-weight="bold" fill="#334155">JavaScript（功能）</text>
+        
+        <!-- 功能性房子 -->
+        <!-- 屋顶 - 基础 -->
+        <path d="M25,100 L125,30 L225,100" fill="#ef4444" stroke="#dc2626"/>
+        <!-- 墙体 - 基础 -->
+        <rect x="50" y="100" width="150" height="120" fill="#fef3c7" stroke="#fbbf24"/>
+        <!-- 门 - 可以开关 -->
+        <g transform="translate(100,160)">
+            <path d="M0,0 L40,10 L40,60 L0,60 Z" fill="#92400e" stroke="#78350f">
+                <animate attributeName="d" 
+                    dur="3s"
+                    repeatCount="indefinite"
+                    values="M0,0 L40,0 L40,60 L0,60 Z;
+                            M0,0 L10,10 L10,70 L0,60 Z;
+                            M0,0 L40,0 L40,60 L0,60 Z"/>
+            </path>
+        </g>
+        <!-- 窗户 - 带光效 -->
+        <g>
+            <rect x="60" y="120" width="40" height="40" fill="#93c5fd" stroke="#2563eb">
+                <animate attributeName="fill"
+                    dur="2s"
+                    repeatCount="indefinite"
+                    values="#93c5fd;#fde047;#93c5fd"/>
+            </rect>
+            <path d="M80,120 L80,160 M60,140 L100,140" stroke="white"/>
+        </g>
+        
+        <!-- 功能示意图标 -->
+        <!-- 电灯泡 -->
+        <circle cx="70" y="80" r="8" fill="#fde047">
+            <animate attributeName="fill"
+                dur="1s"
+                repeatCount="indefinite"
+                values="#fde047;#fee08a;#fde047"/>
+        </circle>
+        <!-- WiFi信号 -->
+        <path d="M160,70 Q170,60 180,70 M165,75 Q170,70 175,75 M167,80 Q170,77 173,80" 
+            stroke="#22c55e" 
+            fill="none" 
+            stroke-width="2">
+            <animate attributeName="opacity"
+                dur="1.5s"
+                repeatCount="indefinite"
+                values="1;0.3;1"/>
+        </path>
+    </g>
+
+    <!-- 底部说明文字 -->
+    <g transform="translate(50, 300)">
+        <text x="100" y="20" font-size="14" fill="#64748b">基础框架结构</text>
+        <text x="350" y="20" font-size="14" fill="#64748b">添加样式美化</text>
+        <text x="600" y="20" font-size="14" fill="#64748b">实现交互功能</text>
+    </g>
+</svg>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>记忆卡片游戏</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* 头部样式 */
+        .game-header {
+            background: linear-gradient(to right, #9333ea, #db2777);
+            color: white;
+            padding: 24px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .game-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .restart-button {
+            background: white;
+            color: #9333ea;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        /* 游戏区域样式 */
+        .game-board {
+            padding: 24px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .card {
+            aspect-ratio: 1;
+            background: #9333ea;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            transition: transform 0.3s, background-color 0.3s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+            background: #f3e8ff;
+        }
+
+        .card span {
+            display: none;
+        }
+
+        .card.flipped span {
+            display: block;
+            transform: rotateY(180deg);
+        }
+
+        /* 游戏说明 */
+        .game-footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 16px 24px;
+            background: #f9fafb;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* 开始游戏按钮 */
+        .start-button {
+            background: #9333ea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 32px auto;
+            display: block;
+        }
+
+        .start-button:hover {
+            background: #7928ca;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- 游戏头部 -->
+        <div class="game-header">
+            <div class="header-content">
+                <h1 class="game-title">记忆卡片游戏</h1>
+                <button class="restart-button" onclick="initializeGame()">重新开始</button>
+            </div>
+            <div class="game-stats">
+                <div>步数: <span id="moves">0</span></div>
+                <div>已配对: <span id="pairs">0</span> / 8</div>
+            </div>
+        </div>
+
+        <!-- 游戏区域 -->
+        <div class="game-board">
+            <div id="start-screen">
+                <button class="start-button" onclick="initializeGame()">开始游戏</button>
+            </div>
+            <div id="cards-grid" class="cards-grid" style="display: none;"></div>
+        </div>
+
+        <!-- 游戏说明 -->
+        <div class="game-footer">
+            翻转卡片找出相同的配对。考验你的记忆力！
+        </div>
+    </div>
+
+    <script>
+        let cards = [];
+        let flippedCards = [];
+        let solvedPairs = [];
+        let moves = 0;
+        const emojis = ['🐱', '🐶', '🐼', '🐨', '🦊', '🦁', '🐯', '🐮'];
+
+        function initializeGame() {
+            // 重置游戏状态
+            cards = [];
+            flippedCards = [];
+            solvedPairs = [];
+            moves = 0;
+            updateStats();
+
+            // 创建并打乱卡片
+            const cardPairs = [...emojis, ...emojis];
+            cards = cardPairs
+                .sort(() => Math.random() - 0.5)
+                .map((emoji, index) => ({ id: index, emoji }));
+
+            // 创建卡片元素
+            const gridElement = document.getElementById('cards-grid');
+            gridElement.innerHTML = '';
+            gridElement.style.display = 'grid';
+            document.getElementById('start-screen').style.display = 'none';
+
+            cards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card';
+                cardElement.innerHTML = `<span>${card.emoji}</span>`;
+                cardElement.onclick = () => handleCardClick(index);
+                gridElement.appendChild(cardElement);
+            });
+        }
+
+        function handleCardClick(index) {
+            const cardElement = document.querySelectorAll('.card')[index];
+            
+            // 检查是否可以翻转
+            if (
+                flippedCards.length === 2 || 
+                flippedCards.includes(index) || 
+                solvedPairs.includes(index)
+            ) {
+                return;
+            }
+
+            // 翻转卡片
+            cardElement.classList.add('flipped');
+            flippedCards.push(index);
+
+            // 检查配对
+            if (flippedCards.length === 2) {
+                moves++;
+                updateStats();
+
+                const [first, second] = flippedCards;
+                if (cards[first].emoji === cards[second].emoji) {
+                    // 配对成功
+                    solvedPairs.push(first, second);
+                    flippedCards = [];
+                    updateStats();
+                } else {
+                    // 配对失败，翻回
+                    setTimeout(() => {
+                        document.querySelectorAll('.card')[first].classList.remove('flipped');
+                        document.querySelectorAll('.card')[second].classList.remove('flipped');
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('moves').textContent = moves;
+            document.getElementById('pairs').textContent = solvedPairs.length / 2;
+        }
+    </script>
+</body>
+</html>

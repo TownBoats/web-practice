@@ -1,0 +1,85 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景 -->
+    <rect width="800" height="500" fill="#f0f2f5"/>
+    
+    <!-- 标题 -->
+    <text x="400" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a1a1a">前端与后端的区别</text>
+    
+    <!-- 前端部分 -->
+    <g transform="translate(100, 100)">
+        <!-- 前端背景 -->
+        <rect x="0" y="0" width="250" height="300" rx="10" fill="#e3f2fd" stroke="#64b5f6" stroke-width="3"/>
+        
+        <!-- 前端标题 -->
+        <text x="125" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#1565c0">前端 (Frontend)</text>
+        
+        <!-- 前端图标和描述 -->
+        <!-- HTML -->
+        <rect x="30" y="70" width="50" height="50" rx="5" fill="#e34f26"/>
+        <text x="55" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="white">HTML</text>
+        
+        <!-- CSS -->
+        <rect x="100" y="70" width="50" height="50" rx="5" fill="#1572b6"/>
+        <text x="125" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="white">CSS</text>
+        
+        <!-- JS -->
+        <rect x="170" y="70" width="50" height="50" rx="5" fill="#f7df1e"/>
+        <text x="195" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="black">JS</text>
+        
+        <!-- 前端特点列表 -->
+        <text x="20" y="160" font-size="16" font-weight="bold" fill="#1a1a1a">主要职责：</text>
+        <text x="30" y="190" font-size="14" font-weight="600" fill="#333">• 页面展示</text>
+        <text x="30" y="210" font-size="14" font-weight="600" fill="#333">• 用户交互</text>
+        <text x="30" y="230" font-size="14" font-weight="600" fill="#333">• 数据收集和验证</text>
+        <text x="30" y="250" font-size="14" font-weight="600" fill="#333">• 客户端性能优化</text>
+        <text x="30" y="270" font-size="14" font-weight="600" fill="#333">• 浏览器兼容性</text>
+    </g>
+    
+    <!-- 后端部分 -->
+    <g transform="translate(450, 100)">
+        <!-- 后端背景 -->
+        <rect x="0" y="0" width="250" height="300" rx="10" fill="#e8f5e9" stroke="#81c784" stroke-width="3"/>
+        
+        <!-- 后端标题 -->
+        <text x="125" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#2e7d32">后端 (Backend)</text>
+        
+        <!-- 后端图标 -->
+        <!-- 服务器 -->
+        <rect x="30" y="70" width="50" height="50" rx="5" fill="#43a047"/>
+        <text x="55" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="white">Server</text>
+        
+        <!-- 数据库 -->
+        <rect x="100" y="70" width="50" height="50" rx="5" fill="#1565c0"/>
+        <text x="125" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Data</text>
+        <text x="125" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Base</text>
+        
+        <!-- API -->
+        <rect x="170" y="70" width="50" height="50" rx="5" fill="#f4511e"/>
+        <text x="195" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="white">API</text>
+        
+        <!-- 后端特点列表 -->
+        <text x="20" y="160" font-size="16" font-weight="bold" fill="#1a1a1a">主要职责：</text>
+        <text x="30" y="190" font-size="14" font-weight="600" fill="#333">• 业务逻辑处理</text>
+        <text x="30" y="210" font-size="14" font-weight="600" fill="#333">• 数据库管理</text>
+        <text x="30" y="230" font-size="14" font-weight="600" fill="#333">• 安全验证</text>
+        <text x="30" y="250" font-size="14" font-weight="600" fill="#333">• 服务器维护</text>
+        <text x="30" y="270" font-size="14" font-weight="600" fill="#333">• API接口提供</text>
+    </g>
+    
+    <!-- 交互箭头 -->
+    <g transform="translate(350, 200)">
+        <!-- 向右箭头 -->
+        <path d="M0,0 L100,0 M85,-15 L100,0 L85,15" stroke="#333" stroke-width="3" fill="none"/>
+        <!-- 向左箭头 -->
+        <path d="M0,50 L100,50 M15,35 L0,50 L15,65" stroke="#333" stroke-width="3" fill="none"/>
+        
+        <!-- 箭头说明 -->
+        <text x="50" y="-10" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">请求数据</text>
+        <text x="50" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">返回数据</text>
+    </g>
+    
+    <!-- 底部说明 -->
+    <text x="400" y="450" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">
+        前端负责用户看到和交互的部分，后端负责数据处理和业务逻辑
+    </text>
+</svg>

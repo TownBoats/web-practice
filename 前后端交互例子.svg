@@ -1,0 +1,108 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景 -->
+    <rect width="800" height="600" fill="#f0f2f5"/>
+    
+    <!-- 标题 -->
+    <text x="400" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#1a1a1a">
+        外卖点餐系统的前后端交互
+    </text>
+
+    <!-- 前端部分（手机APP界面） -->
+    <g transform="translate(50, 100)">
+        <!-- 手机外框 -->
+        <rect x="0" y="0" width="200" height="400" rx="20" fill="#fff" stroke="#333" stroke-width="3"/>
+        <rect x="80" y="15" width="40" height="5" rx="2.5" fill="#333"/>
+        
+        <!-- APP界面内容 -->
+        <g transform="translate(20, 40)">
+            <!-- 餐厅信息 -->
+            <rect x="0" y="0" width="160" height="60" rx="5" fill="#e3f2fd"/>
+            <text x="10" y="25" font-size="14" font-weight="bold" fill="#333">好味餐厅</text>
+            <text x="10" y="45" font-size="12" fill="#666">评分：4.8 配送：30分钟</text>
+
+            <!-- 菜品列表 -->
+            <rect x="0" y="70" width="160" height="240" rx="5" fill="#fff" stroke="#ddd"/>
+            <text x="10" y="90" font-size="14" font-weight="bold" fill="#333">菜品列表：</text>
+            
+            <!-- 菜品项目 -->
+            <g transform="translate(10, 100)">
+                <rect x="0" y="0" width="140" height="40" rx="5" fill="#f5f5f5"/>
+                <text x="5" y="20" font-size="12" fill="#333">红烧肉</text>
+                <text x="5" y="35" font-size="12" fill="#f44336">￥38</text>
+                <rect x="100" y="10" width="30" height="20" rx="10" fill="#4CAF50"/>
+                <text x="115" y="24" text-anchor="middle" font-size="12" fill="#fff">+</text>
+            </g>
+
+            <g transform="translate(10, 150)">
+                <rect x="0" y="0" width="140" height="40" rx="5" fill="#f5f5f5"/>
+                <text x="5" y="20" font-size="12" fill="#333">糖醋排骨</text>
+                <text x="5" y="35" font-size="12" fill="#f44336">￥42</text>
+                <rect x="100" y="10" width="30" height="20" rx="10" fill="#4CAF50"/>
+                <text x="115" y="24" text-anchor="middle" font-size="12" fill="#fff">+</text>
+            </g>
+
+            <!-- 购物车 -->
+            <rect x="0" y="320" width="160" height="40" rx="5" fill="#1976d2"/>
+            <text x="80" y="345" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">
+                提交订单
+            </text>
+        </g>
+    </g>
+
+    <!-- 后端服务器部分 -->
+    <g transform="translate(550, 100)">
+        <!-- 服务器图标 -->
+        <rect x="0" y="0" width="200" height="400" rx="10" fill="#fff" stroke="#333" stroke-width="3"/>
+        
+        <!-- 服务器内部结构 -->
+        <g transform="translate(20, 30)">
+            <!-- API层 -->
+            <rect x="0" y="0" width="160" height="80" rx="5" fill="#e8f5e9"/>
+            <text x="80" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">API接口层</text>
+            <text x="80" y="50" text-anchor="middle" font-size="12" fill="#666">处理前端请求</text>
+            <text x="80" y="65" text-anchor="middle" font-size="12" fill="#666">路由分发</text>
+
+            <!-- 业务逻辑层 -->
+            <rect x="0" y="100" width="160" height="80" rx="5" fill="#fff3e0"/>
+            <text x="80" y="130" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">业务逻辑层</text>
+            <text x="80" y="150" text-anchor="middle" font-size="12" fill="#666">订单处理</text>
+            <text x="80" y="165" text-anchor="middle" font-size="12" fill="#666">库存管理</text>
+
+            <!-- 数据库层 -->
+            <rect x="0" y="200" width="160" height="150" rx="5" fill="#e3f2fd"/>
+            <text x="80" y="230" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">数据库</text>
+            
+            <!-- 数据表 -->
+            <rect x="20" y="250" width="120" height="30" rx="5" fill="#bbdefb"/>
+            <text x="80" y="270" text-anchor="middle" font-size="12" fill="#333">菜品信息表</text>
+            
+            <rect x="20" y="290" width="120" height="30" rx="5" fill="#bbdefb"/>
+            <text x="80" y="310" text-anchor="middle" font-size="12" fill="#333">订单数据表</text>
+        </g>
+    </g>
+
+    <!-- 数据流动箭头 -->
+    <g transform="translate(300, 200)">
+        <!-- 向右箭头 -->
+        <path d="M0,0 L200,0 M185,-15 L200,0 L185,15" stroke="#333" stroke-width="3" fill="none"/>
+        <text x="100" y="-20" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">
+            请求菜品信息/提交订单
+        </text>
+        
+        <!-- 向左箭头 -->
+        <path d="M0,100 L200,100 M15,85 L0,100 L15,115" stroke="#333" stroke-width="3" fill="none"/>
+        <text x="100" y="130" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">
+            返回数据/订单状态
+        </text>
+    </g>
+
+    <!-- 底部说明 -->
+    <g transform="translate(400, 520)">
+        <text x="0" y="0" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">
+            前端：用户界面展示、下单操作
+        </text>
+        <text x="0" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">
+            后端：处理订单、管理数据、业务逻辑
+        </text>
+    </g>
+</svg>

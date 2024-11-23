@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五子棋游戏 - AI对战</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #game-container {
+            text-align: center;
+        }
+
+        canvas {
+            background-color: #DEB887;
+            margin: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-info {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #difficulty {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div class="button-container">
+            <button onclick="toggleGameMode()">切换模式</button>
+            <select id="difficulty" onchange="changeDifficulty()">
+                <option value="easy">简单</option>
+                <option value="medium">中等</option>
+                <option value="hard">困难</option>
+            </select>
+        </div>
+        <div class="game-info">
+            模式: <span id="game-mode">人机对战</span> | 
+            当前玩家: <span id="current-player">黑棋</span>
+        </div>
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+        <br>
+        <button onclick="resetGame()">重新开始</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const boardSize = 15;
+        const cellSize = canvas.width / boardSize;
+        let currentPlayer = 1; // 1为黑棋，2为白棋
+        let gameBoard = Array(boardSize).fill().map(() => Array(boardSize).fill(0));
+        let gameOver = false;
+        let isAIMode = true;
+        let aiDifficulty = 'easy';
+        let isAIThinking = false;
+
+        // 绘制棋盘
+        function drawBoard() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制格线
+            for (let i = 0; i < boardSize; i++) {
+                ctx.beginPath();
+                ctx.moveTo(cellSize/2, cellSize/2 + i * cellSize);
+                ctx.lineTo(canvas.width - cellSize/2, cellSize/2 + i * cellSize);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(cellSize/2 + i * cellSize, cellSize/2);
+                ctx.lineTo(cellSize/2 + i * cellSize, canvas.height - cellSize/2);
+                ctx.stroke();
+            }
+
+            // 绘制天元和星位
+            const stars = [[3, 3], [11, 3], [7, 7], [3, 11], [11, 11]];
+            stars.forEach(([x, y]) => {
+                ctx.beginPath();
+                ctx.arc(cellSize/2 + x * cellSize, cellSize/2 + y * cellSize, 4, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        // 绘制棋子
+        function drawPiece(row, col, player) {
+            const x = cellSize/2 + col * cellSize;
+            const y = cellSize/2 + row * cellSize;
+            const radius = cellSize * 0.4;
+
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            if (player === 1) {
+                ctx.fillStyle = '#000';
+            } else {
+                ctx.fillStyle = '#fff';
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+            ctx.fill();
+        }
+
+        // 重绘整个棋盘
+        function redrawGame() {
+            drawBoard();
+            for (let i = 0; i < boardSize; i++) {
+                for (let j = 0; j < boardSize; j++) {
+                    if (gameBoard[i][j] !== 0) {
+                        drawPiece(i, j, gameBoard[i][j]);
+                    }
+                }
+            }
+        }
+
+        // 评估一个方向上的棋子连续性
+        function evaluateDirection(row, col, player, dx, dy) {
+            let count = 0;
+            let spaces = 0;
+            let line = '';
+
+            // 向两个方向探索
+            for (let dir = -1; dir <= 1; dir += 2) {
+                let r = row + dir * dx;
+                let c = col + dir * dy;
+                let spaceFound = false;
+
+                for (let step = 0; step < 5 && r >= 0 && r < boardSize && c >= 0 && c < boardSize; step++) {
+                    if (gameBoard[r][c] === player) {
+                        if (spaceFound) break;
+                        count++;
+                        line += '1';
+                    } else if (gameBoard[r][c] === 0) {
+                        if (!spaceFound) {
+                            spaces++;
+                            spaceFound = true;
+                        }
+                        line += '0';
+                    } else {
+                        break;
+                    }
+                    r += dir * dx;
+                    c += dir * dy;
+                }
+            }
+
+            return { count, spaces, line };
+        }
+
+        // 评估位置分数
+        function evaluatePosition(row, col, player) {
+            const directions = [
+                [0, 1],  // 横向
+                [1, 0],  // 纵向
+                [1, 1],  // 主对角线
+                [1, -1]  // 副对角线
+            ];
+
+            let score = 0;
+            let maxCount = 0;
+
+            // 根据难度调整评估策略
+            const difficultyMultiplier = {
+                'easy': 0.5,
+                'medium': 1,
+                'hard': 2
+            };
+
+            for (const [dx, dy] of directions) {
+                const eval = evaluateDirection(row, col, player, dx, dy);
+                maxCount = Math.max(maxCount, eval.count);
+
+                // 基础分数计算
+                if (eval.count >= 4) score += 10000;
+                else if (eval.count === 3 && eval.spaces >= 2) score += 1000;
+                else if (eval.count === 2 && eval.spaces >= 2) score += 100;
+                else if (eval.count === 1) score += 10;
+
+                // 防守性评分
+                const oppPlayer = player === 1 ? 2 : 1;
+                const oppEval = evaluateDirection(row, col, oppPlayer, dx, dy);
+                if (oppEval.count >= 3) score += 2000;
+            }
+
+            // 根据难度调整分数
+            score *= difficultyMultiplier[aiDifficulty];
+
+            // 位置权重
+            const center = boardSize / 2;
+            const distanceFromCenter = Math.sqrt(
+                Math.pow(row - center, 2) + Math.pow(col - center, 2)
+            );
+            score += (boardSize - distanceFromCenter) * 2;
+
+            return score;
+        }
+
+        // AI下棋
+        function aiMove() {
+            if (gameOver || isAIThinking) return;
+            isAIThinking = true;
+
+            setTimeout(() => {
+                let bestScore = -Infinity;
+                let bestMove = null;
+                let availableMoves = [];
+
+                // 收集所有可能的移动
+                for (let i = 0; i < boardSize; i++) {
+                    for (let j = 0; j < boardSize; j++) {
+                        if (gameBoard[i][j] === 0) {
+                            const score = evaluatePosition(i, j, 2);
+                            availableMoves.push({ row: i, col: j, score: score });
+                        }
+                    }
+                }
+
+                // 根据分数排序移动
+                availableMoves.sort((a, b) => b.score - a.score);
+
+                // 根据难度选择最佳移动
+                let moveIndex = 0;
+                if (aiDifficulty === 'easy') {
+                    // 在前50%的最佳移动中随机选择
+                    moveIndex = Math.floor(Math.random() * (availableMoves.length / 2));
+                } else if (aiDifficulty === 'medium') {
+                    // 在前30%的最佳移动中随机选择
+                    moveIndex = Math.floor(Math.random() * (availableMoves.length * 0.3));
+                }
+                // 困难模式选择最佳移动
+
+                bestMove = availableMoves[moveIndex];
+
+                if (bestMove) {
+                    makeMove(bestMove.row, bestMove.col);
+                }
+                isAIThinking = false;
+            }, 500); // 添加一些延迟使移动更自然
+        }
+
+        // 检查是否获胜
+        function checkWin(row, col) {
+            const directions = [
+                [[0, 1], [0, -1]], // 横向
+                [[1, 0], [-1, 0]], // 纵向
+                [[1, 1], [-1, -1]], // 主对角线
+                [[1, -1], [-1, 1]] // 副对角线
+            ];
+
+            for (const direction of directions) {
+                let count = 1;
+                for (const [dx, dy] of direction) {
+                    let r = row + dx;
+                    let c = col + dy;
+                    while (
+                        r >= 0 && r < boardSize && 
+                        c >= 0 && c < boardSize && 
+                        gameBoard[r][c] === currentPlayer
+                    ) {
+                        count++;
+                        r += dx;
+                        c += dy;
+                    }
+                }
+                if (count >= 5) return true;
+            }
+            return false;
+        }
+
+        // 处理移动
+        function makeMove(row, col) {
+            if (gameBoard[row][col] === 0 && !gameOver) {
+                gameBoard[row][col] = currentPlayer;
+                drawPiece(row, col, currentPlayer);
+
+                if (checkWin(row, col)) {
+                    const winner = currentPlayer === 1 ? '黑棋' : '白棋';
+                    setTimeout(() => {
+                        alert(winner + '获胜！');
+                        gameOver = true;
+                    }, 100);
+                    return;
+                }
+
+                currentPlayer = currentPlayer === 1 ? 2 : 1;
+                document.getElementById('current-player').textContent = 
+                    currentPlayer === 1 ? '黑棋' : '白棋';
+
+                if (isAIMode && currentPlayer === 2 && !gameOver) {
+                    aiMove();
+                }
+            }
+        }
+
+        // 处理玩家点击
+        canvas.addEventListener('click', (e) => {
+            if (gameOver || (isAIMode && currentPlayer === 2)) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const col = Math.floor(x / cellSize);
+            const row = Math.floor(y / cellSize);
+
+            makeMove(row, col);
+        });
+
+        // 切换游戏模式
+        function toggleGameMode() {
+            isAIMode = !isAIMode;
+            document.getElementById('game-mode').textContent = 
+                isAIMode ? '人机对战' : '双人对战';
+            resetGame();
+        }
+
+        // 更改AI难度
+        function changeDifficulty() {
+            aiDifficulty = document.getElementById('difficulty').value;
+            if (isAIMode) {
+                resetGame();
+            }
+        }
+
+        // 重置游戏
+        function resetGame() {
+            gameBoard = Array(boardSize).fill().map(() => Array(boardSize).fill(0));
+            currentPlayer = 1;
+            gameOver = false;
+            document.getElementById('current-player').textContent = '黑棋';
+            redrawGame();
+        }
+
+        // 初始化游戏
+        drawBoard();
+    </script>
+</body>
+</html>
