@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+    <!-- 背景 -->
+    <rect width="800" height="600" fill="#f8fafc"/>
+    
+    <!-- 卡片A：个人项目 -->
+    <g transform="translate(50,50)">
+        <!-- 卡片背景 -->
+        <rect width="220" height="280" rx="10" fill="white" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))" stroke="#e2e8f0"/>
+        <!-- 标题文本 -->
+        <text x="110" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a365d">个人项目</text>
+        <!-- 列表项 -->
+        <g transform="translate(25,70)">
+            <!-- 博客图标和文本 -->
+            <path d="M0,0 h18 v18 h-18z M3,4 h12 M3,9 h12 M3,14 h8" stroke="#3182ce" fill="none" stroke-width="2"/>
+            <text x="30" y="14" font-size="14" fill="#2d3748">个人博客/作品集</text>
+            
+            <!-- 简历图标和文本 -->
+            <path d="M0,30 h18 v18 h-18z M4,35 h10 M4,40 h8 M4,45 h6" stroke="#805ad5" fill="none" stroke-width="2"/>
+            <text x="30" y="44" font-size="14" fill="#2d3748">在线简历</text>
+            
+            <!-- 主页图标和文本 -->
+            <path d="M9,60 l9,7 l-9,7 l-9,-7 z M4,67 v8 h10 v-8" stroke="#dd6b20" fill="none" stroke-width="2"/>
+            <text x="30" y="74" font-size="14" fill="#2d3748">个人主页</text>
+            
+            <!-- 项目展示图标和文本 -->
+            <path d="M2,90 h14 v14 h-14z M6,94 l6,6 M12,94 l-6,6" stroke="#38a169" fill="none" stroke-width="2"/>
+            <text x="30" y="104" font-size="14" fill="#2d3748">兴趣项目展示</text>
+        </g>
+    </g>
+    
+    <!-- 卡片B：实用工具 -->
+    <g transform="translate(290,50)">
+        <!-- 卡片背景 -->
+        <rect width="220" height="280" rx="10" fill="white" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))" stroke="#e2e8f0"/>
+        <!-- 标题文本 -->
+        <text x="110" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a365d">实用工具</text>
+        <!-- 列表项 -->
+        <g transform="translate(25,70)">
+            <!-- 待办清单图标和文本 -->
+            <path d="M0,0 h18 v18 h-18z M4,9 l3,3 l7,-7" stroke="#38a169" fill="none" stroke-width="2"/>
+            <text x="30" y="14" font-size="14" fill="#2d3748">待办事项清单</text>
+            
+            <!-- 笔记应用图标和文本 -->
+            <path d="M2,30 l4,-4 v18 h12 v-14 h-8" stroke="#805ad5" fill="none" stroke-width="2"/>
+            <text x="30" y="44" font-size="14" fill="#2d3748">笔记应用</text>
+            
+            <!-- 计算器图标和文本 -->
+            <path d="M2,60 h14 v14 h-14z M5,65 h8 M5,69 h8 M5,73 h8" stroke="#d53f8c" fill="none" stroke-width="2"/>
+            <text x="30" y="74" font-size="14" fill="#2d3748">简单的计算器</text>
+            
+            <!-- 倒计时图标和文本 -->
+            <path d="M9,90 a7,7 0 1,0 0.1,0 M9,94 v-4 M9,94 l4,4" stroke="#2b6cb0" fill="none" stroke-width="2"/>
+            <text x="30" y="104" font-size="14" fill="#2d3748">倒计时工具</text>
+            
+            <!-- 图片画廊图标和文本 -->
+            <path d="M2,120 h14 v14 h-14z M5,126 a2,2 0 1,0 0.1,0 M4,134 l3,-3 l3,3 l4,-4" stroke="#e53e3e" fill="none" stroke-width="2"/>
+            <text x="30" y="134" font-size="14" fill="#2d3748">图片画廊</text>
+        </g>
+    </g>
+    
+    <!-- 卡片C：互动性网页 -->
+    <g transform="translate(530,50)">
+        <!-- 卡片背景 -->
+        <rect width="220" height="280" rx="10" fill="white" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))" stroke="#e2e8f0"/>
+        <!-- 标题文本 -->
+        <text x="110" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a365d">互动性网页</text>
+        <!-- 列表项 -->
+        <g transform="translate(25,70)">
+            <!-- 小游戏图标和文本 -->
+            <path d="M2,0 h14 v14 h-14z M5,7 h8 M9,3 v8" stroke="#d69e2e" fill="none" stroke-width="2"/>
+            <text x="30" y="14" font-size="14" fill="#2d3748">小游戏</text>
+            
+            <!-- 数据可视化图标和文本 -->
+            <path d="M2,30 h14 v14 h-14z M4,40 l3,-3 l3,3 l4,-4" stroke="#319795" fill="none" stroke-width="2"/>
+            <text x="30" y="44" font-size="14" fill="#2d3748">数据可视化图表</text>
+            
+            <!-- 问卷图标和文本 -->
+            <path d="M2,60 h14 v14 h-14z M5,65 h8 M5,69 l2,2 l4,-4" stroke="#805ad5" fill="none" stroke-width="2"/>
+            <text x="30" y="74" font-size="14" fill="#2d3748">交互式问卷</text>
+            
+            <!-- 动态展示图标和文本 -->
+            <path d="M2,90 h14 v14 h-14z M5,97 l4,4 l4,-4 v-4" stroke="#c53030" fill="none" stroke-width="2"/>
+            <text x="30" y="104" font-size="14" fill="#2d3748">动态展示页面</text>
+        </g>
+    </g>
+</svg>

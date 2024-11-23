@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人博客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #e2e8f0;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .blog-post h2 {
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+        }
+
+        .post-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-content {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: #e2e8f0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #1e3a8a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #1e3a8a;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* 暗色主题样式 */
+        body.dark-theme {
+            background: #1a1a1a;
+            color: #f4f4f4;
+        }
+
+        .dark-theme .blog-post {
+            background: #2d2d2d;
+            color: #f4f4f4;
+        }
+
+        .dark-theme .blog-post h2 {
+            color: #60a5fa;
+        }
+
+        .dark-theme .tag {
+            background: #374151;
+            color: #60a5fa;
+        }
+
+        .dark-theme nav {
+            background: #2d2d2d;
+        }
+
+        .dark-theme nav a {
+            color: #60a5fa;
+        }
+
+        .dark-theme nav a:hover {
+            background-color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-switch" onclick="toggleTheme()">切换主题</button>
+    <header>
+        <h1>我的个人博客</h1>
+        <p>分享技术与生活</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">首页</a></li>
+            <li><a href="#articles">文章</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article class="blog-post">
+            <h2>JavaScript基础知识速览</h2>
+            <div class="post-meta">
+                发布于 2024-03-20 | 作者：博主
+            </div>
+            <div class="post-content">
+                <p>JavaScript是一门强大的编程语言，主要用于网页交互。本文将介绍一些基础概念...</p>
+                <p>让我们从变量声明开始，了解JavaScript的基本语法结构...</p>
+            </div>
+            <div class="tags">
+                <span class="tag">JavaScript</span>
+                <span class="tag">编程基础</span>
+                <span class="tag">Web开发</span>
+            </div>
+        </article>
+
+        <article class="blog-post">
+            <h2>CSS布局技巧分享</h2>
+            <div class="post-meta">
+                发布于 2024-03-18 | 作者：博主
+            </div>
+            <div class="post-content">
+                <p>CSS布局是前端开发中的重要技能，掌握好布局技巧可以事半功倍...</p>
+                <p>本文将介绍Flexbox和Grid布局的基本用法和实际应用场景...</p>
+            </div>
+            <div class="tags">
+                <span class="tag">CSS</span>
+                <span class="tag">布局</span>
+                <span class="tag">前端开发</span>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2024 我的个人博客. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+
+        // 动态添加博文的功能
+        function addNewPost(title, content, tags) {
+            const main = document.querySelector('main');
+            const article = document.createElement('article');
+            article.className = 'blog-post';
+            
+            const currentDate = new Date().toLocaleDateString('zh-CN');
+            
+            article.innerHTML = `
+                <h2>${title}</h2>
+                <div class="post-meta">
+                    发布于 ${currentDate} | 作者：博主
+                </div>
+                <div class="post-content">
+                    <p>${content}</p>
+                </div>
+                <div class="tags">
+                    ${tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+            `;
+            
+            main.insertBefore(article, main.firstChild);
+        }
+
+        // 示例：添加新博文
+        // addNewPost(
+        //     'HTML5新特性介绍',
+        //     'HTML5带来了许多新的特性和API，让网页开发变得更加强大...',
+        //     ['HTML5', '前端技术', 'Web开发']
+        // );
+    </script>
+</body>
+</html>

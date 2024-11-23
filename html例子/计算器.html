@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单计算器</title>
+    <style>
+        /* 保持原有的CSS样式不变 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 20px;
+            width: 320px;
+        }
+
+        .display {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: right;
+            font-size: 2em;
+            font-family: 'Courier New', monospace;
+            min-height: 80px;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .history {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 0.4em;
+            color: #6c757d;
+        }
+
+        .current {
+            margin-top: 20px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            background: #e9ecef;
+            padding: 20px;
+            font-size: 1.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #dee2e6;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .operator {
+            background: #ffd43b;
+        }
+
+        .operator:hover {
+            background: #fcc419;
+        }
+
+        .equals {
+            background: #ff922b;
+            color: white;
+        }
+
+        .equals:hover {
+            background: #fd7e14;
+        }
+
+        .clear {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .clear:hover {
+            background: #fa5252;
+        }
+
+        .decimal {
+            font-weight: bold;
+        }
+
+        @media (max-width: 400px) {
+            .calculator {
+                width: 100%;
+                margin: 10px;
+            }
+
+            button {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <div class="history"></div>
+            <div class="current">0</div>
+        </div>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button onclick="addOperation('(')">(</button>
+            <button onclick="addOperation(')')">)</button>
+            <button class="operator" onclick="addOperation('/')">÷</button>
+            
+            <button onclick="addNumber('7')">7</button>
+            <button onclick="addNumber('8')">8</button>
+            <button onclick="addNumber('9')">9</button>
+            <button class="operator" onclick="addOperation('*')">×</button>
+            
+            <button onclick="addNumber('4')">4</button>
+            <button onclick="addNumber('5')">5</button>
+            <button onclick="addNumber('6')">6</button>
+            <button class="operator" onclick="addOperation('-')">-</button>
+            
+            <button onclick="addNumber('1')">1</button>
+            <button onclick="addNumber('2')">2</button>
+            <button onclick="addNumber('3')">3</button>
+            <button class="operator" onclick="addOperation('+')">+</button>
+            
+            <button onclick="addNumber('0')">0</button>
+            <button class="decimal" onclick="addDecimal()">.</button>
+            <button onclick="backspace()">←</button>
+            <button class="equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let currentInput = '0';
+        let history = '';
+        let lastResult = null;
+
+        const display = document.querySelector('.current');
+        const historyDisplay = document.querySelector('.history');
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+            historyDisplay.textContent = history;
+        }
+
+        function addNumber(num) {
+            if (currentInput === '0' || currentInput === 'Error') {
+                currentInput = num;
+            } else {
+                currentInput += num;
+            }
+            updateDisplay();
+        }
+
+        function addOperation(op) {
+            if (currentInput !== 'Error') {
+                if (currentInput === '0' && lastResult !== null) {
+                    currentInput = lastResult + op;
+                } else {
+                    currentInput += op;
+                }
+                updateDisplay();
+            }
+        }
+
+        function addDecimal() {
+            if (currentInput !== 'Error') {
+                const parts = currentInput.split(/[\+\-\*\/]/);
+                const lastPart = parts[parts.length - 1];
+                
+                if (!lastPart.includes('.')) {
+                    currentInput += '.';
+                    updateDisplay();
+                }
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            history = '';
+            lastResult = null;
+            updateDisplay();
+        }
+
+        function backspace() {
+            if (currentInput !== 'Error') {
+                if (currentInput.length === 1) {
+                    currentInput = '0';
+                } else {
+                    currentInput = currentInput.slice(0, -1);
+                }
+                updateDisplay();
+            }
+        }
+
+        function calculate() {
+            try {
+                history = currentInput + ' =';
+                // 使用 Function 代替 eval 来提高安全性
+                const result = new Function('return ' + currentInput)();
+                
+                if (isFinite(result)) {
+                    // 处理小数点后过多位数的情况
+                    currentInput = Math.round(result * 1000000) / 1000000 + '';
+                    lastResult = currentInput;
+                } else {
+                    throw new Error('Invalid calculation');
+                }
+            } catch (error) {
+                currentInput = 'Error';
+                lastResult = null;
+            }
+            updateDisplay();
+        }
+
+        // 初始化显示
+        updateDisplay();
+    </script>
+</body>
+</html>
